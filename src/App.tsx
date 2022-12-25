@@ -23,7 +23,11 @@ const App: React.FC = () => {
         </nav>
 
         <Routes>
-          <Route path="/create" element={<h1>Create Flashcard</h1>} />
+          <Route path="/create" element={<h1>Create Flashcard route</h1>} />
+          <Route
+            path="/"
+            element={<FlashcardList flashcards={flashcards}></FlashcardList>}
+          />
         </Routes>
       </div>
     </Router>
