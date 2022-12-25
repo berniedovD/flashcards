@@ -11,6 +11,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div>
+        <h1>This is the TITLE</h1>
         <nav>
           <ul>
             <li>
