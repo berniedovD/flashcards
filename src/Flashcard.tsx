@@ -1,21 +1,30 @@
 import React, { useState } from "react";
 
-type FlashcardProps = {
-  question: string;
-  answer: string;
-};
+interface FlashcardProps {
+  term: string;
+  definition: string;
+}
 
-const Flashcard: React.FC<FlashcardProps> = ({ question, answer }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+const Flashcard: React.FC<FlashcardProps> = ({ term, definition }) => {
+  const [showFront, setShowFront] = useState(true);
 
   return (
-    <div className="flashcard">
-      {isFlipped ? (
-        <div className="flashcard-answer">{answer}</div>
+    <div
+      className="flashcard"
+      style={{ width: "80%", height: "80%", margin: "auto" }}
+      onClick={() => setShowFront(!showFront)}
+    >
+      {showFront ? (
+        <div>
+          <h3>{term}</h3>
+          <p>Click to flip</p>
+        </div>
       ) : (
-        <div className="flashcard-question">{question}</div>
+        <div>
+          <h3>{definition}</h3>
+          <p>Click to flip</p>
+        </div>
       )}
-      <button onClick={() => setIsFlipped(!isFlipped)}>Flip</button>
     </div>
   );
 };
