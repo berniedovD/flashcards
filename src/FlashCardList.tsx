@@ -11,8 +11,8 @@ const FlashcardList: React.FC<FlashcardListProps> = ({ flashcards }) => {
       {flashcards.map((flashcard, index) => (
         <Flashcard
           key={index}
-          question={flashcard.question}
-          answer={flashcard.answer}
+          term={flashcard.question}
+          definition={flashcard.answer}
         />
       ))}
     </div>
