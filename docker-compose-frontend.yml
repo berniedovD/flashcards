@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+  flashcards-frontend: 
+    build:
+      context: .
+    volumes:
+      - flashcard_build:/build
+
+volumes:
+  flashcard_build:
