@@ -18,3 +18,4 @@ COPY ${APP_SRC} /app
 
 RUN rm -rf /app/build
 RUN npm run build
+CMD tail -f /dev/null

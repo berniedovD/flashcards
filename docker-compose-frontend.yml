@@ -5,7 +5,7 @@ services:
     build:
       context: .
     volumes:
-      - flashcard_build:/build
+      - build:/app
 
 volumes:
-  flashcard_build:
+  build:

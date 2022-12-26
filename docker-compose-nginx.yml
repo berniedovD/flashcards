@@ -6,10 +6,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./logs/:/var/log/nginx/:rw
-      - flashcard_build:/app/:ro
+      - /opt/flashcards/logs/:/var/log/nginx/:rw
+      - build:/app/:ro
       - ./nginx/samplehtml/:/usr/share/nginx/samplehtml/:ro
 
 volumes:
-  static:
-    flashcard_build:
+   build:
