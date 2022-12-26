@@ -1,18 +1,20 @@
-version: '3.6'
+version: "3.3"
+
 services:
-   nginx:
-     build:
+  flashcards-frontend:
+    build:
+      context: .
+    volumes:
+      - build:/app
+  nginx:
+    build:
       context: ./nginx
-     ports:
-       - "80:80"
-     volumes:
-       - static:/usr/src/app/static/:rw
-       - ./logs/:/var/log/nginx/:rw
-       - ./build/:/usr/share/nginx/html/:rw
-       - ./nginx/samplehtml/:/usr/share/nginx/samplehtml/:ro
-
-
+    ports:
+      - "80:80"
+    volumes:
+      - /opt/flashcards/logs/:/var/log/nginx/:rw
+      - build:/app/:ro
+      - ./nginx/samplehtml/:/usr/share/nginx/samplehtml/:ro
 
 volumes:
-  static:
-  flashcard_volume:
+  build:
