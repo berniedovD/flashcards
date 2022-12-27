@@ -11,7 +11,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div>
-        <h1>This is the TITLE</h1>
+        <h1>A trivial Flashcard App</h1>
         <nav>
           <ul>
             <li>
