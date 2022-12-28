@@ -20,15 +20,19 @@ const App: React.FC = () => {
             <li>
               <Link to="/create">Create Flashcard</Link>
             </li>
+            <li>
+              <Link to="/show">Show Flash Cards</Link>
+            </li>
           </ul>
         </nav>
 
         <Routes>
           <Route path="/create" element={<h1>Create Flashcard route</h1>} />
-          <Route
-            path="/"
-            element={<FlashcardList flashcards={flashcards}></FlashcardList>}
-          />
+          <Route path="/" element={<h1>FlashCard App</h1>} />
+          <Route>
+            path="/show" element=
+            {<FlashcardList flashcards={flashcards}></FlashcardList>}
+          </Route>
         </Routes>
       </div>
     </Router>
