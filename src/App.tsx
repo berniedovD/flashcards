@@ -29,10 +29,10 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/create" element={<h1>Create Flashcard route</h1>} />
           <Route path="/" element={<h1>FlashCard App</h1>} />
-          <Route>
-            path="/show" element=
-            {<FlashcardList flashcards={flashcards}></FlashcardList>}
-          </Route>
+          <Route
+            path="/show"
+            element={<FlashcardList flashcards={flashcards}></FlashcardList>}
+          ></Route>
         </Routes>
       </div>
     </Router>
