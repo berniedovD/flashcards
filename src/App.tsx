@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, redirect } from "react-router-dom";
 import FlashcardList from "./FlashCardList";
 import Flashcardplay from "./FlashCardPlay";
 
@@ -38,6 +38,7 @@ const App: React.FC = () => {
             element={<FlashcardList flashcards={flashcards}></FlashcardList>}
           ></Route>
           <Route path="/play" element={<Flashcardplay flashcards={flashcards}/>}/>
+          <Route path="/gameover" element={<h1>You are done!!!</h1>}/>
         </Routes>
       </div>
     </Router>

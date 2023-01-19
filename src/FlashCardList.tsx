@@ -1,7 +1,7 @@
 import React from "react";
 import Flashcard from "./Flashcard";
 
-export type FlashcardListProps = {
+export interface FlashcardListProps {
   flashcards: Array<{ question: string; answer: string }>;
 };
 
