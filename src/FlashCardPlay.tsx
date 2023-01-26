@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
 import Flashcard from "./Flashcard";
 import {FlashcardListProps} from "./FlashCardList";
-import {Navigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
+   const navigate = useNavigate();
+   
    const [card, setCard] = useState<number>(0);
    const [lastCard, setLastCard] = useState<boolean>(false);
    const [firstCard, setFirstCard] = useState<boolean>(true); 
@@ -23,13 +25,14 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    function previous() {
       setCard(card - 1);
    }
+
    useEffect(() => {
      setLastCard(card === flashcards.length - 1);
      setFirstCard(card === 0);
    }, [card])
+   useEffect(() => {if (!playing) {navigate("/gameover", {replace: true})}}, [playing])
    return(
       <div>
-        {!playing && <Navigate to="/gameover" replace={true}/>}
         <Flashcard
            term={flashcards[card].question}
            definition={flashcards[card].answer}
