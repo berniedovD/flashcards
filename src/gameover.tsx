@@ -10,7 +10,7 @@ export default function GameOver(): JSX.Element {
     function playUnknown(): void {
        var play: number[] = [];
        let knownFlashcards = location.state.knownFlashcards;
-
+       
        for (var i = 0; i < knownFlashcards.length; i++ ) {
           if (knownFlashcards[i] == 1) {
              play.push(i);

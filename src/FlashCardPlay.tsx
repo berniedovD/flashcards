@@ -11,9 +11,9 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    const [lastCard, setLastCard] = useState<boolean>(false);
    const [firstCard, setFirstCard] = useState<boolean>(true); 
    const [known, setknown] = useState<number[]>(new Array(flashcards.length).fill(0));
-    
+   const [gameover, setGameover] = useState<boolean>(false);   
+ 
    let playcards =  location.state ? location.state.play : Array.from(Array(flashcards.length).keys());
-   
    function updateknown(know: number) {
       // 1 is not known and 2 is known.
       setknown(known.map((e: number, i: number) => i === card ? know : e));
@@ -21,8 +21,9 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    function next() {
       if (!lastCard) {
           setCard(card + 1);
+          
       } else {
-          navigate("/gameover", {replace: true, state: {knownFlashcards: known}});
+         setGameover(true);
       }
    }
    function previous() {
@@ -33,7 +34,7 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
      setLastCard(card === playcards.length - 1);
      setFirstCard(card === 0);
    }, [card]);
-   
+   useEffect(() => {if(gameover) {navigate("/gameover", {replace: true, state: {knownFlashcards: known}})}}, [known]); 
    return(
       <div>
         <Flashcard
