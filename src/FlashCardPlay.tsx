@@ -1,16 +1,19 @@
 import React, {useState, useEffect} from "react";
 import Flashcard from "./Flashcard";
 import {FlashcardListProps} from "./FlashCardList";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 
 const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    const navigate = useNavigate();
+   const location = useLocation();
    
    const [card, setCard] = useState<number>(0);
    const [lastCard, setLastCard] = useState<boolean>(false);
    const [firstCard, setFirstCard] = useState<boolean>(true); 
    const [known, setknown] = useState<number[]>(new Array(flashcards.length).fill(0));
-   const [playing, setPlaying] = useState<boolean>(true)
+    
+   let playcards =  location.state ? location.state.play : Array.from(Array(flashcards.length).keys());
+   
    function updateknown(know: number) {
       // 1 is not known and 2 is known.
       setknown(known.map((e: number, i: number) => i === card ? know : e));
@@ -19,7 +22,7 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
       if (!lastCard) {
           setCard(card + 1);
       } else {
-          setPlaying(false);
+          navigate("/gameover", {replace: true, state: {knownFlashcards: known}});
       }
    }
    function previous() {
@@ -27,15 +30,15 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    }
 
    useEffect(() => {
-     setLastCard(card === flashcards.length - 1);
+     setLastCard(card === playcards.length - 1);
      setFirstCard(card === 0);
-   }, [card])
-   useEffect(() => {if (!playing) {navigate("/gameover", {replace: true})}}, [playing])
+   }, [card]);
+   
    return(
       <div>
         <Flashcard
-           term={flashcards[card].question}
-           definition={flashcards[card].answer}
+           term={flashcards[playcards[card]].question}
+           definition={flashcards[playcards[card]].answer}
         />
         <button onClick={() => {updateknown(2); next()}}>know</button>
         <button onClick={() => {updateknown(1); next()}}>don't know</button>
