@@ -7,18 +7,35 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    const navigate = useNavigate();
    const location = useLocation();
    
-   const [card, setCard] = useState<number>(0);
+   // An array of the indexes of the cards that will be played.
+   let playcards =  location.state ? location.state.play : Array.from(Array(flashcards.length).keys());
+   
+   const [card, setCard] = useState<number>(0);// Current card
+   const [cardIndex, setCI] = useState<number>(playcards[card]);
+   useEffect(() => setCI(playcards[card]), [card]);
+  
    const [lastCard, setLastCard] = useState<boolean>(false);
    const [firstCard, setFirstCard] = useState<boolean>(true); 
+   useEffect(() => {
+     setLastCard(card === playcards.length - 1);
+     setFirstCard(card === 0);
+   }, [card]);
+   
+   // An array of which cards the user knows. 1 is not known; 2 is known; 0 is defalt. 
    const [known, setknown] = useState<number[]>(new Array(flashcards.length).fill(0));
-   const [gameover, setGameover] = useState<boolean>(false);   
- 
-   let playcards =  location.state ? location.state.play : Array.from(Array(flashcards.length).keys());
+   // updateknown will update one element of "known". 
    function updateknown(know: number) {
-      // 1 is not known and 2 is known.
-      setknown(known.map((e: number, i: number) => i === card ? know : e));
+      setknown(known.map((e: number, i: number) => i === cardIndex ? know : e));
    }
-   function next() {
+
+  const [gameover, setGameover] = useState<boolean>(false);   
+  useEffect(() => {
+     if (gameover) {
+        navigate("/gameover", {replace: true, state: {knownFlashcards: known}});
+     }
+  }, [known]);
+ 
+  function next() {
       if (!lastCard) {
           setCard(card + 1);
           
@@ -30,19 +47,14 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
       setCard(card - 1);
    }
 
-   useEffect(() => {
-     setLastCard(card === playcards.length - 1);
-     setFirstCard(card === 0);
-   }, [card]);
-   useEffect(() => {if(gameover) {navigate("/gameover", {replace: true, state: {knownFlashcards: known}})}}, [known]); 
    return(
       <div>
         <Flashcard
-           term={flashcards[playcards[card]].question}
-           definition={flashcards[playcards[card]].answer}
+           term={flashcards[cardIndex].question}
+           definition={flashcards[cardIndex].answer}
         />
-        <button onClick={() => {updateknown(2); next()}}>know</button>
-        <button onClick={() => {updateknown(1); next()}}>don't know</button>
+        <button onClick={() => {updateknown(2); next()}}>Know</button>
+        <button onClick={() => {updateknown(1); next()}}>Still learning</button>
         <button onClick={next}>Skip</button>
         <button disabled={firstCard} onClick={previous}>Previous</button>
       </div>
