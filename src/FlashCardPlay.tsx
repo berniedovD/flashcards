@@ -43,6 +43,14 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
          setGameover(true);
       }
    }
+   function skip() {
+      if (!lastCard) {
+          setCard(card+1);
+      } else {
+          navigate("/gameover", {replace: true, state: {knownFlashcards: known}}); 
+      }
+     
+   }
    function previous() {
       setCard(card - 1);
    }
@@ -55,7 +63,7 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
         />
         <button onClick={() => {updateknown(2); next()}}>Know</button>
         <button onClick={() => {updateknown(1); next()}}>Still learning</button>
-        <button onClick={next}>Skip</button>
+        <button onClick={skip}>Skip</button>
         <button disabled={firstCard} onClick={previous}>Previous</button>
       </div>
    )
