@@ -1,5 +1,4 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 export default function GameOver(): JSX.Element {
     const location = useLocation();
@@ -14,7 +13,7 @@ export default function GameOver(): JSX.Element {
        var play: number[] = [];
        
        for (var i = 0; i < knownFlashcards.length; i++ ) {
-          if (knownFlashcards[i] == 1) {
+          if (knownFlashcards[i] === 1) {
              play.push(i);
           }
        }
