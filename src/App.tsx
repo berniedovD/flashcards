@@ -3,16 +3,23 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import FlashcardList from "./FlashCardList";
 import Select from 'react-select';
 
+type flashcardSet = {name: string, elements: {question: string, answer: string}[]}
+ 
 const App: React.FC = () => {
   const flashcards = [
     { question: "What is 2 + 2?", answer: "4" },
     { question: "What is the capital of France?", answer: "Paris" },
   ];
    
-  const flashcardSets: String[] = ["Flashcardset1", "Flashcardset2"];
+  const flashcardSets: flashcardSet[] = [{name: "Flashcardset1", elements: [
+    { question: "What is 2 + 2?", answer: "4" },
+    { question: "What is the capital of France?", answer: "Paris" }]},
+  {name: "Flashcardset2", elements: [
+     {question: "שלום", answer: "peace!"}, 
+     {question:"בראשית", answer: "In the beginning"}]}];
   
   function getListOfFS() {
-    return flashcardSets;
+    return flashcardSets.map(({name}: flashcardSet): String => name);
   }
 
   return (
