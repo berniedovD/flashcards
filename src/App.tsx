@@ -1,25 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import FlashcardList from "./FlashCardList";
 import Select from 'react-select';
 
 type flashcardSet = {name: string, elements: {question: string, answer: string}[]}
- 
+type RSOptionForm = {value: string, label: string, id: number}; 
 const App: React.FC = () => {
-  const flashcards = [
-    { question: "What is 2 + 2?", answer: "4" },
-    { question: "What is the capital of France?", answer: "Paris" },
-  ];
-   
-  const flashcardSets: flashcardSet[] = [{name: "Flashcardset1", elements: [
+  const flashcardSets: flashcardSet[] = [{name: "Flashcard1", elements: [
     { question: "What is 2 + 2?", answer: "4" },
     { question: "What is the capital of France?", answer: "Paris" }]},
-  {name: "Flashcardset2", elements: [
+  {name: "Flashcard2", elements: [
      {question: "שלום", answer: "peace!"}, 
      {question:"בראשית", answer: "In the beginning"}]}];
   
+  const [flashcards, setFlashcard] = useState<flashcardSet["elements"]>(flashcardSets[0].elements);   
   function getListOfFS() {
-    return flashcardSets.map(({name}: flashcardSet): String => name);
+    return flashcardSets.map(({name}: flashcardSet): string => name);
+  }
+  function onChange(option: RSOptionForm | null) {
+    if (option) {
+      setFlashcard(flashcardSets[(option as RSOptionForm).id].elements)
+    }
   }
 
   return (
@@ -39,7 +40,7 @@ const App: React.FC = () => {
             </li>
           </ul>
         </nav>
-        <Select options={getListOfFS().map((n: String): {value: String, label: String} => {return {value: n, label: n}})}/>
+        <Select options={getListOfFS().map((e: string, i: number): {value: string, label: string, id: number} => {return {value: e, label: e, id: i}})} onChange={onChange}/>
         
         <Routes>
           <Route path="/create" element={<h1>Create Flashcard route</h1>} />
