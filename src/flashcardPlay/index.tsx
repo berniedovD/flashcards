@@ -2,6 +2,9 @@ import React, {useState, useEffect} from "react";
 import Flashcard from "../Flashcard";
 import {FlashcardListProps} from "../FlashCardList";
 import { useNavigate, useLocation } from "react-router-dom"
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
 
 const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    const navigate = useNavigate();
@@ -56,16 +59,16 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    }
 
    return(
-      <div>
+      <Stack sx={{ maxWidth: "sm" }}>
         <Flashcard
            term={flashcards[cardIndex].question}
            definition={flashcards[cardIndex].answer}
-        />
-        <button onClick={() => {updateknown(2); next()}}>Know</button>
-        <button onClick={() => {updateknown(1); next()}}>Still learning</button>
-        <button onClick={skip}>Skip</button>
-        <button disabled={firstCard} onClick={previous}>Previous</button>
-      </div>
+        /><Stack direction="row" alignItems="center" justifyContent="space-evenly">
+        <Button onClick={() => {updateknown(2); next()}} variant="contained">Know</Button>
+        <Button onClick={() => {updateknown(1); next()}} variant="contained">Still learning</Button>
+        <Button onClick={skip} variant="contained">Skip</Button>
+        <Button disabled={firstCard} onClick={previous} variant="contained">Previous</Button></Stack>
+      </Stack>
    )
 }
 
