@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import FlashcardList from "./FlashCardList";
+import Flashcardplay from "./flashcardPlay";
+import GameOver from "./flashcardPlay/gameover";
 
 const App: React.FC = () => {
   const flashcards = [
@@ -23,6 +25,9 @@ const App: React.FC = () => {
             <li>
               <Link to="/show">Show Flash Cards</Link>
             </li>
+            <li>
+              <Link to="/play">Play Flashcards Individually</Link>
+            </li>
           </ul>
         </nav>
 
@@ -33,6 +38,8 @@ const App: React.FC = () => {
             path="/show"
             element={<FlashcardList flashcards={flashcards}></FlashcardList>}
           ></Route>
+          <Route path="/play" element={<Flashcardplay flashcards={flashcards}/>}/>
+          <Route path="/gameover" element={<GameOver/>}/>
         </Routes>
       </div>
     </Router>

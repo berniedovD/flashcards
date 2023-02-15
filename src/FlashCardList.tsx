@@ -1,7 +1,7 @@
 import React from "react";
 import Flashcard from "./Flashcard";
 
-type FlashcardListProps = {
+export interface FlashcardListProps {
   flashcards: Array<{ question: string; answer: string }>;
 };
 
@@ -20,3 +20,4 @@ const FlashcardList: React.FC<FlashcardListProps> = ({ flashcards }) => {
 };
 
 export default FlashcardList;
+
