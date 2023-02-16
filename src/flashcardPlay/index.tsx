@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from "react";
-import Flashcard from "../Flashcard";
+import Flashcard from "./flashcard";
 import {FlashcardListProps} from "../FlashCardList";
 import { useNavigate, useLocation } from "react-router-dom"
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Box from "@mui/material/Box";
 
 const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    const navigate = useNavigate();
@@ -57,18 +59,27 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    function previous() {
       setCard(card - 1);
    }
+   const NavButtons = (
+      <React.Fragment>
+         <Stack direction="row" alignItems="center" justifyContent="space-evenly">
+             <Button onClick={() => {updateknown(2); next()}} variant="contained">Know</Button>
+             <Button onClick={() => {updateknown(1); next()}} variant="contained">Still learning</Button>
+             <Button onClick={skip} variant="contained">Skip</Button>
+             <Button disabled={firstCard} onClick={previous} variant="contained">Previous</Button>
+         </Stack>        
+      </React.Fragment>)
 
    return(
-      <Stack sx={{ maxWidth: "sm" }}>
-        <Flashcard
-           term={flashcards[cardIndex].question}
-           definition={flashcards[cardIndex].answer}
-        /><Stack direction="row" alignItems="center" justifyContent="space-evenly">
-        <Button onClick={() => {updateknown(2); next()}} variant="contained">Know</Button>
-        <Button onClick={() => {updateknown(1); next()}} variant="contained">Still learning</Button>
-        <Button onClick={skip} variant="contained">Skip</Button>
-        <Button disabled={firstCard} onClick={previous} variant="contained">Previous</Button></Stack>
-      </Stack>
+      <Box sx={{ maxWidth: 750 }}>
+         <Card variant="outlined">
+            <CardContent>
+              <Flashcard
+                 term={flashcards[cardIndex].question}
+                 definition={flashcards[cardIndex].answer}
+              />
+              {NavButtons}
+            </CardContent>
+      </Card></Box>
    )
 }
 
