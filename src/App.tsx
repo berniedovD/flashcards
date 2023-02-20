@@ -1,49 +1,48 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import React, {useState} from "react";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import FlashcardList from "./FlashCardList";
 import Flashcardplay from "./flashcardPlay";
 import GameOver from "./flashcardPlay/gameover";
+
+import Box from "@mui/material/Box";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 const App: React.FC = () => {
   const flashcards = [
     { question: "What is 2 + 2?", answer: "4" },
     { question: "What is the capital of France?", answer: "Paris" },
   ];
-
   return (
     <Router>
       <div>
-        <h1>A trivial Flashcard App</h1>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/create">Create Flashcard</Link>
-            </li>
-            <li>
-              <Link to="/show">Show Flash Cards</Link>
-            </li>
-            <li>
-              <Link to="/play">Play Flashcards Individually</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Routes>
-          <Route path="/create" element={<h1>Create Flashcard route</h1>} />
-          <Route path="/" />
-          <Route
-            path="/show"
-            element={<FlashcardList flashcards={flashcards}></FlashcardList>}
-          ></Route>
-          <Route path="/play" element={<Flashcardplay flashcards={flashcards}/>}/>
-          <Route path="/gameover" element={<GameOver/>}/>
+      <Routes>
+          <Route path="/" element={<TabNav/>}>
+             <Route index element={<h1>Home</h1>}/>
+             <Route path="/create" element={<h1>Create Flashcard route</h1>} />
+             <Route
+               path="/show"
+               element={<FlashcardList flashcards={flashcards}></FlashcardList>}
+             />
+             <Route path="/play" element={<Flashcardplay flashcards={flashcards}/>}/>
+             <Route path="/gameover" element={<GameOver/>}/>
+             <Route path="*" element={<h1>Error 404</h1>}/>
+          </Route>
         </Routes>
       </div>
     </Router>
   );
 };
+
+function TabNav() { 
+  const [value, setValue] = useState(0);
+  const navigate = useNavigate();
+  return (<Box>
+    <Tabs value={value} onChange={(event: React.SyntheticEvent, newValue: number) => setValue(newValue)}>
+       <Tab onClick={() => navigate("/")} label="Home"/>
+       <Tab onClick={() => navigate("/show")} label="Show Flashcards"/>
+       <Tab onClick={() => navigate("/play")} label="Play Flashcards"/></Tabs><Outlet/>
+  </Box>)
+}
 
 export default App;
