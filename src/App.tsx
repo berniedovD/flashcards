@@ -7,6 +7,8 @@ import GameOver from "./flashcardPlay/gameover";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Grid from "@mui/material/Grid";
+import Typography from '@mui/material/Typography';
 
 const App: React.FC = () => {
   const flashcards = [
@@ -38,10 +40,15 @@ function TabNav() {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
   return (<Box>
-    <Tabs value={value} onChange={(event: React.SyntheticEvent, newValue: number) => setValue(newValue)}>
+    <Typography align="center" variant="h2">Torah Flashcards</Typography>
+    <Tabs value={value} centered onChange={(event: React.SyntheticEvent, newValue: number) => setValue(newValue)}>
        <Tab onClick={() => navigate("/")} label="Home"/>
        <Tab onClick={() => navigate("/show")} label="Show Flashcards"/>
-       <Tab onClick={() => navigate("/play")} label="Play Flashcards"/></Tabs><Outlet/>
+       <Tab onClick={() => navigate("/play")} label="Play Flashcards"/></Tabs>
+          
+          
+          <Outlet/>
+          
   </Box>)
 }
 

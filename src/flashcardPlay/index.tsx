@@ -70,8 +70,8 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
       </React.Fragment>)
 
    return(
-      <Box sx={{ maxWidth: 750 }}>
-         <Card variant="outlined">
+      <Box justifyContent="center" display="flex" alignItems="center">
+         <Card variant="outlined" sx={{width: 650}}>
             <CardContent>
               <Flashcard
                  term={flashcards[cardIndex].question}
