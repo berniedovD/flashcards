@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import { useLocation, BrowserRouter as Router, Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import FlashcardList from "./FlashCardList";
 import Flashcardplay from "./flashcardPlay";
 import GameOver from "./flashcardPlay/gameover";
@@ -36,19 +36,26 @@ const App: React.FC = () => {
   );
 };
 
-function TabNav() { 
-  const [value, setValue] = useState(0);
+function TabNav() {
+  const LOCS = ["/", "/show", "/play", "/gameover"];
+  const LOCTAB = [0, 1, 2, 2];
+  function currentTab() {
+    return LOCTAB[LOCS.indexOf(location.pathname)];
+  }
+   
+  const location = useLocation();
+  const [value, setValue] = useState<number | null>(currentTab());
+  useEffect(() => {setValue(currentTab())}, [location])
   const navigate = useNavigate();
+
   return (<Box>
     <Typography align="center" variant="h2">Torah Flashcards</Typography>
     <Tabs value={value} centered onChange={(event: React.SyntheticEvent, newValue: number) => setValue(newValue)}>
        <Tab onClick={() => navigate("/")} label="Home"/>
        <Tab onClick={() => navigate("/show")} label="Show Flashcards"/>
-       <Tab onClick={() => navigate("/play")} label="Play Flashcards"/></Tabs>
-          
-          
-          <Outlet/>
-          
+       <Tab onClick={() => navigate("/play")} label="Play Flashcards"/>
+    </Tabs> 
+    <Outlet/>          
   </Box>)
 }
 
