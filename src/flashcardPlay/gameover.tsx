@@ -29,10 +29,10 @@ export default function GameOver(): JSX.Element {
        }
        navigate("/play", { replace: true, state: {play: play}} );
     }
-    return <Box sx={{ maxWidth: 700}}>
+    return <Box display="flex" justifyContent="center" alignItems="center"><Box sx={{ width: 700 }}>
        <Typography align="center" variant="h4" color={green[600]}>You know {NFcount}/{FcCount} cards.</Typography>
        {StLeCount !== 0 ? <Typography align="center" variant="h4" color={red[600]}>You are still learning {StLeCount}/{FcCount} cards.</Typography> : null}
        <Stack  direction="row" justifyContent="space-evenly"><Button variant="contained" onClick={playAgain}>Play again</Button>
        <Button variant="contained" disabled={!knownFlashcards.includes(1)} onClick={playUnknown}>Play the cards you don't know</Button></Stack>
-    </Box>
+    </Box></Box>
 }
