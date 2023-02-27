@@ -19,7 +19,7 @@ export default function TabNav() {
 
   return (<Box>
     <Typography align="center" variant="h2">Torah Flashcards</Typography>
-    <Tabs value={value} centered onChange={(event: React.SyntheticEvent, newValue: number) => setValue(newValue)}>
+    <Tabs value={value} centered onChange={(event: React.SyntheticEvent, newValue: number) => setValue(newValue)} sx={{mb: 5}}>
        <Tab onClick={() => navigate("/")} label="Home"/>
        <Tab onClick={() => navigate("/show")} label="Show Flashcards"/>
        <Tab onClick={() => navigate("/play")} label="Play Flashcards"/>
