@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import { useLocation, BrowserRouter as Router, Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FlashcardList from "./FlashCardList";
 import Flashcardplay from "./flashcardPlay";
 import GameOver from "./flashcardPlay/gameover";

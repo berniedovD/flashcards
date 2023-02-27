@@ -17,14 +17,14 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    
    const [card, setCard] = useState<number>(0);// Current card
    const [cardIndex, setCI] = useState<number>(playcards[card]);
-   useEffect(() => setCI(playcards[card]), [card]);
+   useEffect(() => setCI(playcards[card]), [card]); // eslint-disable-line react-hooks/exhaustive-deps
   
    const [lastCard, setLastCard] = useState<boolean>(false);
    const [firstCard, setFirstCard] = useState<boolean>(true); 
    useEffect(() => {
      setLastCard(card === playcards.length - 1);
      setFirstCard(card === 0);
-   }, [card]);
+   }, [card]); // eslint-disable-line react-hooks/exhaustive-deps
    
    // An array of which cards the user knows. 1 is not known; 2 is known; 0 is defalt. 
    const [known, setknown] = useState<number[]>(new Array(flashcards.length).fill(0));
@@ -38,7 +38,7 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
      if (gameover) {
         navigate("/gameover", {replace: true, state: {knownFlashcards: known}});
      }
-  }, [known]);
+  }, [known]); // eslint-disable-line react-hooks/exhaustive-deps
  
   function next() {
       if (!lastCard) {

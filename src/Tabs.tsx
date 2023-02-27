@@ -6,15 +6,19 @@ import Box from "@mui/material/Box";
 import {useLocation, useNavigate, Outlet} from "react-router-dom";
 
 export default function TabNav() {
+  const location = useLocation();
   const LOCS = ["/", "/show", "/play", "/gameover"];
   const LOCTAB = [0, 1, 2, 2];
+ 
   function currentTab() {
     return LOCTAB[LOCS.indexOf(location.pathname)];
   }
-
-  const location = useLocation();
+ 
   const [value, setValue] = useState<number | null>(currentTab());
-  useEffect(() => {setValue(currentTab())}, [location])
+  useEffect(() => {
+   setValue(currentTab());
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const navigate = useNavigate();
 
   return (<Box>
