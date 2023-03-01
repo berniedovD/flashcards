@@ -1,4 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import green from "@mui/material/colors/green";
+import red from "@mui/material/colors/red";
 
 export default function GameOver(): JSX.Element {
     const location = useLocation();
@@ -23,9 +29,10 @@ export default function GameOver(): JSX.Element {
        }
        navigate("/play", { replace: true, state: {play: play}} );
     }
-    return <div>
-       <h3>You know {NFcount} cards out of {FcCount}{StLeCount !== 0 ? ", but you are still learning " + StLeCount +" cards" : ""}.</h3>
-       <button onClick={playAgain}>Play again</button>
-       <button disabled={!knownFlashcards.includes(1)} onClick={playUnknown}>Play the cards you don't know</button>
-    </div>
+    return <Box display="flex" justifyContent="center" alignItems="center"><Box sx={{ width: 700 }}>
+       <Typography align="center" variant="h4" color={green[600]}>You know {NFcount}/{FcCount} cards.</Typography>
+       {StLeCount !== 0 ? <Typography align="center" variant="h4" color={red[600]}>You are still learning {StLeCount}/{FcCount} cards.</Typography> : null}
+       <Stack  direction="row" justifyContent="space-evenly"><Button variant="contained" onClick={playAgain}>Play again</Button>
+       <Button variant="contained" disabled={!knownFlashcards.includes(1)} onClick={playUnknown}>Play the cards you don't know</Button></Stack>
+    </Box></Box>
 }

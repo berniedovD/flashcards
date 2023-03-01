@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 
 interface FlashcardProps {
   term: string;
@@ -6,26 +10,19 @@ interface FlashcardProps {
 }
 
 const Flashcard: React.FC<FlashcardProps> = ({ term, definition }) => {
-  const [showFront, setShowFront] = useState(true);
 
   return (
-    <div
+    <Paper
       className="flashcard"
-      style={{ width: "80%", height: "80%", margin: "auto" }}
-      onClick={() => setShowFront(!showFront)}
+      elevation={1}
+      sx={{ mx: 'auto', width: "80%", display: 'flex', justifyContent: 'space-around', p: 2, m:2
+ }}
     >
-      {showFront ? (
-        <div>
-          <h3>{term}</h3>
-          <p>Click to flip</p>
-        </div>
-      ) : (
-        <div>
-          <h3>{definition}</h3>
-          <p>Click to flip</p>
-        </div>
-      )}
-    </div>
+        
+          <Typography variant="h3">{term}</Typography>
+          <Divider orientation="vertical" flexItem/>
+          <Typography variant="h3">{definition}</Typography>
+    </Paper>
   );
 };
 

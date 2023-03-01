@@ -1,7 +1,12 @@
 import React, {useState, useEffect} from "react";
-import Flashcard from "../Flashcard";
+import Flashcard from "./flashcard";
 import {FlashcardListProps} from "../FlashCardList";
 import { useNavigate, useLocation } from "react-router-dom"
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Box from "@mui/material/Box";
 
 const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    const navigate = useNavigate();
@@ -12,14 +17,14 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    
    const [card, setCard] = useState<number>(0);// Current card
    const [cardIndex, setCI] = useState<number>(playcards[card]);
-   useEffect(() => setCI(playcards[card]), [card]);
+   useEffect(() => setCI(playcards[card]), [card]); // eslint-disable-line react-hooks/exhaustive-deps
   
    const [lastCard, setLastCard] = useState<boolean>(false);
    const [firstCard, setFirstCard] = useState<boolean>(true); 
    useEffect(() => {
      setLastCard(card === playcards.length - 1);
      setFirstCard(card === 0);
-   }, [card]);
+   }, [card]); // eslint-disable-line react-hooks/exhaustive-deps
    
    // An array of which cards the user knows. 1 is not known; 2 is known; 0 is defalt. 
    const [known, setknown] = useState<number[]>(new Array(flashcards.length).fill(0));
@@ -33,7 +38,7 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
      if (gameover) {
         navigate("/gameover", {replace: true, state: {knownFlashcards: known}});
      }
-  }, [known]);
+  }, [known]); // eslint-disable-line react-hooks/exhaustive-deps
  
   function next() {
       if (!lastCard) {
@@ -54,18 +59,27 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
    function previous() {
       setCard(card - 1);
    }
+   const NavButtons = (
+      <React.Fragment>
+         <Stack direction="row" alignItems="center" justifyContent="space-evenly">
+             <Button onClick={() => {updateknown(2); next()}} variant="contained">Know</Button>
+             <Button onClick={() => {updateknown(1); next()}} variant="contained">Still learning</Button>
+             <Button onClick={skip} variant="contained">Skip</Button>
+             <Button disabled={firstCard} onClick={previous} variant="contained">Previous</Button>
+         </Stack>        
+      </React.Fragment>)
 
    return(
-      <div>
-        <Flashcard
-           term={flashcards[cardIndex].question}
-           definition={flashcards[cardIndex].answer}
-        />
-        <button onClick={() => {updateknown(2); next()}}>Know</button>
-        <button onClick={() => {updateknown(1); next()}}>Still learning</button>
-        <button onClick={skip}>Skip</button>
-        <button disabled={firstCard} onClick={previous}>Previous</button>
-      </div>
+      <Box justifyContent="center" display="flex" alignItems="center">
+         <Card variant="outlined" sx={{width: 650}}>
+            <CardContent>
+              <Flashcard
+                 term={flashcards[cardIndex].question}
+                 definition={flashcards[cardIndex].answer}
+              />
+              {NavButtons}
+            </CardContent>
+      </Card></Box>
    )
 }
 

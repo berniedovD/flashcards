@@ -1,13 +1,15 @@
 import React from "react";
 import Flashcard from "./Flashcard";
 
+import Stack from "@mui/material/Stack";
+
 export interface FlashcardListProps {
   flashcards: Array<{ question: string; answer: string }>;
 };
 
 const FlashcardList: React.FC<FlashcardListProps> = ({ flashcards }) => {
   return (
-    <div className="flashcard-list">
+    <Stack justifyContent="center" alignItems="center" className="flashcard-list">
       {flashcards.map((flashcard, index) => (
         <Flashcard
           key={index}
@@ -15,7 +17,7 @@ const FlashcardList: React.FC<FlashcardListProps> = ({ flashcards }) => {
           definition={flashcard.answer}
         />
       ))}
-    </div>
+    </Stack>
   );
 };
 
