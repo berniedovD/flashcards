@@ -14,17 +14,19 @@ const App: React.FC = () => {
     <Router>
       <div>
       <Routes>
-          <Route path="/" element={<TabNav/>}>
+          <Route path="/" element={<h1>home page</h1>}/>
+          <Route path="flashcard/:flashcard" element={<TabNav/>}>
              <Route index element={<h1>Home</h1>}/>
-             <Route path="/create" element={<h1>Create Flashcard route</h1>} />
+             <Route path="create" element={<h1>Create Flashcard route</h1>} />
              <Route
-               path="/show"
+               path="show"
                element={<FlashcardList flashcards={flashcards}></FlashcardList>}
              />
-             <Route path="/play" element={<Flashcardplay flashcards={flashcards}/>}/>
-             <Route path="/gameover" element={<GameOver/>}/>
+             <Route path="play" element={<Flashcardplay flashcards={flashcards}/>}/>
+             <Route path="gameover" element={<GameOver/>}/>
              <Route path="*" element={<h1>Error 404</h1>}/>
           </Route>
+          <Route path="*" element={<h1>Error 404</h1>}/>
         </Routes>
       </div>
     </Router>

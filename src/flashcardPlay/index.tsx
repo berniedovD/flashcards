@@ -36,7 +36,7 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
   const [gameover, setGameover] = useState<boolean>(false);   
   useEffect(() => {
      if (gameover) {
-        navigate("/gameover", {replace: true, state: {knownFlashcards: known}});
+        navigate("../gameover", {state: {knownFlashcards: known}});
      }
   }, [known]); // eslint-disable-line react-hooks/exhaustive-deps
  
@@ -52,7 +52,7 @@ const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
       if (!lastCard) {
           setCard(card+1);
       } else {
-          navigate("/gameover", {replace: true, state: {knownFlashcards: known}}); 
+          navigate("../gameover", {state: {knownFlashcards: known}}); 
       }
      
    }

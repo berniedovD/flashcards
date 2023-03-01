@@ -17,7 +17,7 @@ export default function GameOver(): JSX.Element {
     let StLeCount = knownFlashcards.filter((FC: number) => FC === 1).length;
     
     function playAgain(): void {
-        navigate("/play", { replace: true });
+        navigate("../play");
     }
     function playUnknown(): void {
        var play: number[] = [];
@@ -27,7 +27,7 @@ export default function GameOver(): JSX.Element {
              play.push(i);
           }
        }
-       navigate("/play", { replace: true, state: {play: play}} );
+       navigate("../play", { state: {play: play}} );
     }
     return <Box display="flex" justifyContent="center" alignItems="center"><Box sx={{ width: 700 }}>
        <Typography align="center" variant="h4" color={green[600]}>You know {NFcount}/{FcCount} cards.</Typography>
