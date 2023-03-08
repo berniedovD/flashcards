@@ -4,6 +4,7 @@ import FlashcardList from "./FlashCardList";
 import Flashcardplay from "./flashcardPlay";
 import GameOver from "./flashcardPlay/gameover";
 import TabNav from "./Tabs";
+import Home from "./Home";
 
 const App: React.FC = () => {
   const flashcards = [
@@ -14,7 +15,7 @@ const App: React.FC = () => {
     <Router>
       <div>
       <Routes>
-          <Route path="/" element={<h1>home page</h1>}/>
+          <Route path="/" element={<Home/>}/>
           <Route path="flashcard/:flashcard" element={<TabNav/>}>
              <Route index element={<h1>Home</h1>}/>
              <Route path="create" element={<h1>Create Flashcard route</h1>} />
