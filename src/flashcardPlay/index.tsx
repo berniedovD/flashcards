@@ -1,17 +1,22 @@
 import React, {useState, useEffect} from "react";
+
 import Flashcard from "./flashcard";
 import {FlashcardListProps} from "../FlashCardList";
+import { useFCContext } from "../Tabs";
+
 import { useNavigate, useLocation } from "react-router-dom"
+
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Box from "@mui/material/Box";
 
-const Flashcardplay = ({flashcards}: FlashcardListProps):JSX.Element => {
+const Flashcardplay = ():JSX.Element => {
    const navigate = useNavigate();
    const location = useLocation();
-   
+   const flashcards = useFCContext();
+
    // An array of the indexes of the cards that will be played.
    let playcards =  location.state ? location.state.play : Array.from(Array(flashcards.length).keys());
    

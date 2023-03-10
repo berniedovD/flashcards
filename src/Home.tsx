@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 // Hardcoded set of flashcard sets
 type FCSet = {name: string, id: number};
-const FCSets: FCSet[] = [{name: "Flashcard set 1", id: 0}, {name: "Flashcard set 2", id: 2}];
+const FCSets: FCSet[] = [{name: "Flashcard set 1", id: 0}, {name: "Flashcard set 2", id: 1}];
 
 
 function FCSetComp({card, id} : {card: string, id: number}) {

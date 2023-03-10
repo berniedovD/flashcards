@@ -3,12 +3,41 @@ import Typography from "@mui/material/Typography";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import {useLocation, useNavigate, Outlet} from "react-router-dom";
+import {useLocation, useNavigate, useParams, Outlet, useOutletContext } from "react-router-dom";
 
 type tabLink = { path: string, tabN: number };
+type flashcards = { question: string, answer: string }[];
+function getFlashcards(id: number): flashcards | undefined {
+  const flashcardSets = [
+    { id: 0, cards: [
+      { question: "What is 2 + 2?", answer: "4" },
+      { question: "What is the capital of France?", answer: "Paris" }]
+    },
+    { id: 1, cards: [
+      { question: "בראשית", answer: "In the begining" },
+      { question: "ברא", answer: "He created" },
+      { question: "הארץ", answer: "The land"}]
+    }
+  ];
+  return flashcardSets.find((e) => e.id === id)?.cards;
+}
+
+function useFlashcards(): flashcards | undefined {
+  const params = useParams();
+  const [flashcards, setFlashcards] = useState(getFlashcards((Number(params.flashcard))));
+  useEffect(() => setFlashcards(getFlashcards((Number(params.flashcard)))), [params])
+  return flashcards;
+}
+
+export function useFCContext() {
+  return useOutletContext<flashcards>();
+}
 
 export default function TabNav() {
   const location = useLocation();
+  
+  const flashcards = useFlashcards();
+
   const LOCS: tabLink[] = [
     { path: "/", tabN: 0 },
     { path: "/show", tabN: 1 },
@@ -34,6 +63,6 @@ export default function TabNav() {
        <Tab onClick={() => navigate("show")} label="Show Flashcards"/>
        <Tab onClick={() => navigate("play")} label="Play Flashcards"/>
     </Tabs>
-    <Outlet/>
+    {flashcards && <Outlet context={flashcards}/>}
   </Box>)
 }

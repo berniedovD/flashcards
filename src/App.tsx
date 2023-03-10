@@ -23,7 +23,7 @@ const App: React.FC = () => {
                path="show"
                element={<FlashcardList flashcards={flashcards}></FlashcardList>}
              />
-             <Route path="play" element={<Flashcardplay flashcards={flashcards}/>}/>
+             <Route path="play" element={<Flashcardplay/>}/>
              <Route path="gameover" element={<GameOver/>}/>
              <Route path="*" element={<h1>Error 404</h1>}/>
           </Route>
