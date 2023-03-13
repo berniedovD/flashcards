@@ -39,6 +39,7 @@ export default function TabNav() {
   const flashcards = useFlashcards();
 
   const LOCS: tabLink[] = [
+    { path: "", tabN: 0 },
     { path: "/", tabN: 0 },
     { path: "/show", tabN: 1 },
     { path: "/play", tabN: 2 },
@@ -46,7 +47,9 @@ export default function TabNav() {
   ];
  
   function currentTab(): number | undefined {
-    return LOCS.find((element: tabLink) => location.pathname.endsWith(element.path))?.tabN;
+    const BOURL = /\/flashcard\/\d/;
+    let endOfURL = location.pathname.replace(BOURL, "");
+    return LOCS.find((element: tabLink) => element.path === endOfURL)?.tabN;
   }
  
   const [value, setValue] = useState<number | undefined>(currentTab());
